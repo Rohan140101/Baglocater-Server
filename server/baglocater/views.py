@@ -64,6 +64,9 @@ def decode(request):
             return decoded_data
 
         decoded_string = decompress(encoded_text)
-        print(decoded_string)
+        decoded_string_list = []
+        decoded_string_list.append(decoded_string)
+        print(decoded_string_list)
         responseData = decoded_string
-        return JsonResponse(responseData, content_type="application/json")
+        # return JsonResponse(decoded_string_list, safe=False)
+        return Response(decoded_string)
