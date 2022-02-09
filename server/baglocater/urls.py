@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.decode, name='decode')
+    path('decode', views.decode, name='decode'),
+    path('authenticate', views.authenticate, name='authenticate')
 ]

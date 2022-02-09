@@ -3,12 +3,32 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework import status
+from baglocater.models import Credentials
+import json
 
 # Create your views here.
-# @csrf_exempt
+@csrf_exempt
 @api_view(['GET', 'POST'])
+def index(request):
+    return HttpResponse('Server for baglocater')
+    pass
+
+@csrf_exempt
+def authenticate(request):
+    if request.method == 'POST':
+        received_json_data=json.loads(request.body)
+        username = received_json_data['username']
+        password = received_json_data['password']
+        try:
+            cred = Credentials.objects.get(username=username, password=password)
+        except Credentials.DoesNotExist:
+            return JsonResponse({'success': 'false'}, status=status.HTTP_404_NOT_FOUND)
+
+    return JsonResponse({"success": "true"})
+
+@csrf_exempt
 def decode(request):
-    
     if request.method == 'POST':
         encoded_string = request.data
         encoded_string = encoded_string['data']
@@ -28,7 +48,7 @@ def decode(request):
                 if(current_code in reverse_map):
                     decoded_text += reverse_map[current_code]
                     current_code = ""
-        
+
             return decoded_text
 
 
