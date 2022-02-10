@@ -1,1 +1,0 @@
-MONGODB_URI = "mongodb+srv://admin-ritik:admin-ritik@cluster0.ase9w.mongodb.net/baglocaterDB?retryWrites=true&w=majority"
