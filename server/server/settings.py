@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import urllib
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,12 +78,14 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'baglocaterDB',
+        'default': {
+            'ENGINE': 'djongo',
+            'NAME': 'baglocaterDB',
+            'ENFORCE_SCHEMA': False,
+            'CLIENT': {
+                'host': 'mongodb+srv://admin-ritik:admin-ritik@cluster0.ase9w.mongodb.net/baglocaterDB?retryWrites=true&w=majority'
+            }
     }
 }
 
