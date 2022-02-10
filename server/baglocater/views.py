@@ -28,6 +28,7 @@ def authenticate(request):
     return JsonResponse({"success": "true"})
 
 @csrf_exempt
+@api_view(['GET', 'POST'])
 def decode(request):
     if request.method == 'POST':
         encoded_string = request.data
