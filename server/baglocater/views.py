@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from baglocater.models import Credentials
+from baglocater.models import Credentials, AddLostAndFound
 import json
 
 # Create your views here.
@@ -25,6 +25,25 @@ def authenticate(request):
         except Credentials.DoesNotExist:
             return JsonResponse({'success': 'false'}, status=status.HTTP_404_NOT_FOUND)
 
+    return JsonResponse({"success": "true"})
+
+@csrf_exempt
+def addLostAndFound(request):
+    if request.method == 'POST':
+        received_json_data = json.loads(request.body)
+        name = received_json_data('name')
+        email = received_json_data('email')
+        flightNumber = received_json_data('flightNumber')
+        phoneNumber = received_json_data('phoneNumber')
+        baggageNumber = received_json_data('baggageNumber')
+        departureAirport = received_json_data('departureAirport')
+        arrivalAirport = received_json_data('arrivalAirport')
+        departureDate = received_json_data('departureDate')
+        arrivalDate = received_json_data('arrivalDate')
+        try:
+            alaf = AddLostAndFound.objects.create(name=name, email=email, flightNumber=flightNumber, phoneNumber=phoneNumber, baggageNumber=baggageNumber, departureAirport=departureAirport, arrivalAirport=arrivalAirport, departureDate=departureDate, arrivalDate=arrivalDate)
+        except:
+            return JsonResponse({'success': 'false'})
     return JsonResponse({"success": "true"})
 
 @csrf_exempt
