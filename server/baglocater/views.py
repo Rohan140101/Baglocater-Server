@@ -41,8 +41,9 @@ def addLostAndFound(request):
         departureDate = received_json_data['departureDate']
         arrivalDate = received_json_data['arrivalDate']
         url = received_json_data['url']
+        airport = received_json_data['airport']
         try:
-            alaf = AddLostAndFound.objects.create(name=name, email=email, flightNumber=flightNumber, phoneNumber=phoneNumber, baggageNumber=baggageNumber, departureAirport=departureAirport, arrivalAirport=arrivalAirport, departureDate=departureDate, arrivalDate=arrivalDate, url=url)
+            alaf = AddLostAndFound.objects.create(name=name, email=email, flightNumber=flightNumber, phoneNumber=phoneNumber, baggageNumber=baggageNumber, departureAirport=departureAirport, arrivalAirport=arrivalAirport, departureDate=departureDate, arrivalDate=arrivalDate, url=url, airport=airport)
         except:
             return JsonResponse({'success': 'false'})
     return JsonResponse({"success": "true"})

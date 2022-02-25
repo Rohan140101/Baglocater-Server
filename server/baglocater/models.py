@@ -16,3 +16,4 @@ class AddLostAndFound(models.Model):
     departureDate = models.CharField(max_length=30)
     arrivalDate = models.CharField(max_length=30)
     url = models.CharField(max_length=100)
+    airport = models.CharField(max_length=60)
