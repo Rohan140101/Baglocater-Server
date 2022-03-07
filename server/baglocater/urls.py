@@ -4,5 +4,6 @@ from . import views
 urlpatterns = [
     path('decode', views.decode, name='decode'),
     path('authenticate', views.authenticate, name='authenticate'),
-    path('addLostAndFound', views.addLostAndFound, name='addLostAndFound')
+    path('addLostAndFound', views.addLostAndFound, name='addLostAndFound'),
+    path('retrievebag', views.retrievebag, name='retrievebag')
 ]
