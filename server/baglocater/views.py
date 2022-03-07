@@ -49,6 +49,19 @@ def addLostAndFound(request):
     return JsonResponse({"success": "true"})
 
 @csrf_exempt
+def searchBags(request):
+    if request.method == 'POST':
+        received_json_data = json.loads(request.body)
+        flightNumber = received_json_data['flightNumber']
+        dateOfLanding = received_json_data['dateOfLanding']
+        try:
+            alaf = AddLostAndFound.objects.filter(arrivalDate=dateOfLanding, flightNumber=flightNumber).values()
+            print(alaf)
+        except AddLostAndFound.DoesNotExist:
+            return JsonResponse({"bagFound": "false"})
+        return JsonResponse({"bagFound": "true", "data": list(alaf)})
+
+@csrf_exempt
 @api_view(['GET', 'POST'])
 def decode(request):
     if request.method == 'POST':
