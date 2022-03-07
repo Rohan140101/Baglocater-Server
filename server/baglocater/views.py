@@ -125,3 +125,18 @@ def decode(request):
         responseData = decoded_string
         # return JsonResponse(decoded_string_list, safe=False)
         return Response(decoded_string)
+
+
+@csrf_exempt
+def retrievebag(request):
+    if request.method == 'POST':
+        received_json_data=json.loads(request.body)
+        baggageNo = received_json_data['baggageNo']
+        print(baggageNo)
+        try:
+            bagDetails = AddLostAndFound.objects.filter(baggageNumber=baggageNo).values()
+            print(bagDetails)
+        except AddLostAndFound.DoesNotExist:
+            return JsonResponse({'success': 'false'}, status=status.HTTP_404_NOT_FOUND)
+
+    return JsonResponse({"success": "true", "data": list(bagDetails)})
