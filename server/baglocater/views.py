@@ -140,3 +140,19 @@ def retrievebag(request):
             return JsonResponse({'success': 'false'}, status=status.HTTP_404_NOT_FOUND)
 
     return JsonResponse({"success": "true", "data": list(bagDetails)})
+
+
+@csrf_exempt
+def verifydetails(request):
+    if request.method == 'POST':
+        received_json_data=json.loads(request.body)
+        baggageNo = received_json_data['baggageNo']
+        print(baggageNo)
+        try:
+            bagRemoved = AddLostAndFound.objects.get(baggageNumber=baggageNo)
+            bagRemoved.delete()
+            print(bagRemoved)
+        except AddLostAndFound.DoesNotExist:
+            return JsonResponse({'success': 'false'}, status=status.HTTP_404_NOT_FOUND)
+
+    return JsonResponse({"success": "true"})
