@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-a#t-ws+%v7)ipl4(%(u*-q6#jbxx5f1q0wp!y^wsxw&l49-1xv'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['baglocater-server.herokuapp.com', 'localhost']
 
 CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
@@ -84,7 +84,7 @@ DATABASES = {
             'NAME': 'baglocaterDB',
             'ENFORCE_SCHEMA': False,
             'CLIENT': {
-                'host': MONGODB_URI
+                'host': os.environ["MONGODB_URI"]
             }
     }
 }
