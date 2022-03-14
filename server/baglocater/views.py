@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from baglocater.models import Credentials, AddLostAndFound
+from baglocater.models import Credentials, AddLostAndFound, Contact
 import json
 
 # Create your views here.
@@ -152,6 +152,22 @@ def verifydetails(request):
             bagRemoved = AddLostAndFound.objects.get(baggageNumber=baggageNo)
             bagRemoved.delete()
             print(bagRemoved)
+        except AddLostAndFound.DoesNotExist:
+            return JsonResponse({'success': 'false'}, status=status.HTTP_404_NOT_FOUND)
+
+    return JsonResponse({"success": "true"})
+
+
+@csrf_exempt
+def contact(request):
+    if request.method == 'POST':
+        received_json_data=json.loads(request.body)
+        name = received_json_data['name']
+        email = received_json_data['email']
+        query = received_json_data['query']
+        print(name)
+        try:
+            obj = Contact.objects.create(name=name, email=email, query=query)
         except AddLostAndFound.DoesNotExist:
             return JsonResponse({'success': 'false'}, status=status.HTTP_404_NOT_FOUND)
 

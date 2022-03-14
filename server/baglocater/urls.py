@@ -7,5 +7,6 @@ urlpatterns = [
     path('addLostAndFound', views.addLostAndFound, name='addLostAndFound'),
     path('retrievebag', views.retrievebag, name='retrievebag'),
     path('searchBags', views.searchBags, name='searchBags'),
-    path('verifydetails', views.verifydetails, name='verifydetails')
+    path('verifydetails', views.verifydetails, name='verifydetails'),
+    path('contact', views.contact, name='contact')
 ]
